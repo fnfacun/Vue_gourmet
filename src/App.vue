@@ -1,28 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <el-container>
+      <Header></Header>
+      <el-main>
+        <div class="main">
+          <router-view></router-view>
+        </div>
+      </el-main>
+      <el-footer>
+        <div class="footer">Copyright © 2019 - 2019 </div>
+      </el-footer>
+    </el-container>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Header from '@/components/header'
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    Header
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="stylus">
+body 
+  background: #fae8c8
+  font-size 12px
+.main
+  width 990px
+  margin 0 auto
+.footer
+  text-align center
+  height 42px
+  line-height 42px
 </style>
