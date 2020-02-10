@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/views/home/index';
-
+import Home from '@/views/home/index'
+import Store from '@/store/index'
+import { userInfo } from '@/service/index'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 Vue.use(Router);
 
 const Recipe = () => import('@/views/recipe/index');
@@ -128,8 +131,50 @@ const router = new Router({
     ]
 });
 
-router.beforeEach((to, from, next)=>{
-    next()
+router.beforeEach(async(to, from, next)=>{
+    NProgress.start();
+    let token = localStorage.getItem("token");
+    let isLogin = !!token;
+    // 进入之前验证 token 合不合法
+    let res = await userInfo();
+    Store.commit('changeInfo', res.data);
+    if(to.matched.some(item=>item.meta.login)){ // 需要登录
+        // 用户登录了
+        if(isLogin){
+            if(res.error === 400){
+                next({
+                    name: 'login'
+                })
+                localStorage.removeItem("token");
+                return;
+            }
+            if(to.name === 'login'){
+                next({
+                    name: 'home'
+                });
+                return;
+            } else {
+                next();
+            }
+        // 用户没登录
+        } else {
+            // 如果是 login 直接进入
+            if(to.name === 'login'){
+                next();
+            } else {
+            // 不是 login 跳转到 login
+                next({
+                    name: 'login'
+                });
+            }
+        }
+    } else { // 不需要登录
+        next();
+    }
+})
+
+router.afterEach(()=>{
+    NProgress.done()
 })
 
 export default router;

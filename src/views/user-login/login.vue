@@ -4,7 +4,9 @@
             label-position="top"
             :rules="rules"
             :model="ruleForm" status-icon 
-            ref="ruleForm" label-width="100px" class="demo-ruleForm"
+            ref="ruleForm" 
+            label-width="100px" 
+            class="demo-ruleForm"
         >
             <!-- 用户名 -->
             <el-form-item label="用户名" prop="name">
@@ -24,6 +26,7 @@
 </template>
 
 <script>
+import { login } from '@/service/index'
 export default {
     data() {
         return {
@@ -44,6 +47,33 @@ export default {
                 }]
             }
         };
+    },
+    methods: {
+        submitForm(formName){
+            // 验证
+            this.$refs[formName].validate((valid)=>{
+                if(valid){
+                    login({
+                        name: this.ruleForm.name,
+                        password: this.ruleForm.password
+                    }).then(res=>{
+                        if(res.code === 0){
+                            localStorage.setItem("token",res.data.token);
+                            this.$router.push({
+                                name: 'home'
+                            });
+                        } else {
+                            this.$message.error(res.mes);
+                        }
+                    })
+                } else {
+                    return false
+                }
+            });
+        },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        }
     }
 }
 </script>

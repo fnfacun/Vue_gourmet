@@ -42,7 +42,9 @@ export default {
                 this.banners = res.data.list;
             }
         });
-        getMenus({page: this.page}).then(res=>{
+        getMenus({
+            page: this.page
+        }).then(res=>{
             if(res.code === 0){
                 this.menuList = res.data.list;
                 this.pages = Math.ceil(res.data.total / res.data.page_size);
@@ -57,7 +59,9 @@ export default {
             } else {
                 this.$refs.waterfall.isLoading = true;
             }
-            getMenus({page: this.page}).then(res=>{
+            getMenus({
+                page: this.page
+            }).then(res=>{
                 if(res.code === 0) {
                     this.menuList.push(...res.data.list);
                     this.$refs.waterfall.isLoading = false;

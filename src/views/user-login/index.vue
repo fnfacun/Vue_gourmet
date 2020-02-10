@@ -14,6 +14,7 @@
 <script>
 import Login from './login'
 import Register from './register'
+
 export default {
     components: {
         Login, 
@@ -21,9 +22,9 @@ export default {
     },
     data(){
         return {
-            activeName: ''
+            activeName: 'login'
         }
-    }
+    },
 }
 </script>
 
