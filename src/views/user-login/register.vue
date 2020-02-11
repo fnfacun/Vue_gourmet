@@ -55,7 +55,7 @@ export default {
                         name: this.ruleForm.name,
                         password: this.ruleForm.password
                     }).then(res=>{
-                        switch(res.code){
+                         switch(res.code){
                             case 0:
                                 this.$message({
                                     message: '注册成功，请登录',
