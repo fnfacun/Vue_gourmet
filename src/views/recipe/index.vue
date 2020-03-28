@@ -157,17 +157,17 @@ export default {
             delete query.classify;
             if(Object.keys(query).length){
                 params.property = {
-                ...query
+                    ...query
                 }
             }
             let loading = null;
             this.$nextTick(() => {
                 loading = this.$loading({
-                target: '.filter-menus-box',
-                lock: true,
-                text: 'Loading',
-                spinner: 'el-icon-loading',
-                background: 'rgba(0, 0, 0, 0.7)'
+                    target: '.filter-menus-box',
+                    lock: true,
+                    text: 'Loading',
+                    spinner: 'el-icon-loading',
+                    background: 'rgba(0, 0, 0, 0.7)'
                 });
             })
             this.list = [];  // 每次请求之前都清空

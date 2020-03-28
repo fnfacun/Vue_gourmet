@@ -37,7 +37,7 @@ export default {
             rules: {
                 name: [{ 
                     required: true, 
-                    message: '请输入活动名称', 
+                    message: '请输入你的用户名', 
                     trigger: 'blur' 
                 }],
                 password: [{ 
